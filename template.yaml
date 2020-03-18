@@ -1,0 +1,51 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: EverSQL Performance Sensor
+Parameters:
+  AwsRegion:
+    Type: String
+    Description: >
+      The AWS region your databases are deployed in.
+  AwsDBServersList:
+    Type: String
+    Description: >
+      A comma-separated list of database servers names (identifiers) you'd like to track.
+      See: https://console.aws.amazon.com/rds/home
+  EverSQLApiKey:
+    Type: String
+    Description: >
+      Your personal EverSQL API key.
+Resources:
+  PerformanceSensor:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.8
+      CodeUri: src/
+      Handler: app.lambda_handler
+      Description: ''
+      MemorySize: 1024
+      Timeout: 600
+      Environment:
+        Variables:
+          AWS_REGION_TO_TRACK: !Ref AwsRegion
+          AWS_DB_SERVERS_LIST_TO_TRACK: !Ref AwsDBServersList
+          EVERSQL_API_KEY: !Ref EverSQLApiKey
+      Events:
+        Schedule1:
+          Type: Schedule
+          Properties:
+            Schedule: cron(0/10 * * * ? *)
+      Policies:
+      - Statement:
+        - Action:
+          - rds:DownloadDBLogFilePortion
+          - rds:DescribeDBLogFiles
+          Resource: '*'
+          Effect: Allow
+        - Action:
+          - lambda:TagResource
+          - lambda:ListTags
+          Resource: '*'
+          Effect: Allow
+        
