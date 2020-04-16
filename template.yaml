@@ -5,16 +5,15 @@ Parameters:
   AwsRegion:
     Type: String
     Description: >
-      The AWS region your databases are deployed in.
+      The AWS region your databases are deployed in. Sample value: us-east-2
   AwsDBServersList:
     Type: String
     Description: >
-      A comma-separated list of database servers names (identifiers) you'd like to track.
-      See: https://console.aws.amazon.com/rds/home
+      A comma-separated list of database servers names (identifiers) you'd like to track. Sample value: mydb-1,mydb-2
   EverSQLApiKey:
     Type: String
     Description: >
-      Your personal EverSQL API key.
+      Your personal EverSQL API key. Sample value: 502AFE437174A...
 Resources:
   PerformanceSensor:
     Type: 'AWS::Serverless::Function'

@@ -4,18 +4,18 @@ Description: EverSQL Performance Sensor
 Parameters:
   AwsRegion:
     Type: String
-    Description: 'The AWS region your databases are deployed in.
+    Description: 'The AWS region your databases are deployed in. Sample value: us-east-2
 
       '
   AwsDBServersList:
     Type: String
     Description: 'A comma-separated list of database servers names (identifiers) you''d
-      like to track. See: https://console.aws.amazon.com/rds/home
+      like to track. Sample value: mydb-1,mydb-2
 
       '
   EverSQLApiKey:
     Type: String
-    Description: 'Your personal EverSQL API key.
+    Description: 'Your personal EverSQL API key. Sample value: 502AFE437174A...
 
       '
 Resources:
@@ -24,7 +24,7 @@ Resources:
     Properties:
       Handler: app.lambda_handler
       Runtime: python3.8
-      CodeUri: s3://performance-sensor-installer/5ad99f001239e50c01ca49bfeddb7b2a
+      CodeUri: s3://performance-sensor-installer/53c2be20233c1c9c4d8771067ccd369e
       Description: ''
       MemorySize: 1024
       Timeout: 600
